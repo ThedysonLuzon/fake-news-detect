@@ -1,0 +1,52 @@
+# Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+__init__.py
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# dotenv environment variables
+.env
+.env.*
+
+# Logs
+*.log
+backend/app/logs/
+
+# Node / Next.js
+# dependencies
+/frontend/node_modules/
+/node_modules/
+
+# Next.js build output & static exports
+/frontend/.next/
+/frontend/out/
+/.next/
+out/
+
+# debugging
+npm-debug.log*
+yarn-error.log*
+
+# Local env files
+/frontend/.env.local
+/.env.local
+
+# Terraform
+/infra/.terraform/
+/infra/*.tfstate
+/infra/*.tfstate.*
+
+# Model artifacts
+/models/
+
+# OS or Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
