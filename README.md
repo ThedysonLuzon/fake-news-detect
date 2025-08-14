@@ -1,10 +1,24 @@
 # Fake News Detector
 >Paste an article and get a Fake/Real verdict from a RoBERTa classifier, with optional evidence (FAISS/RAG) and LLM explanation.
 
-- **Frontend**: Next.js (App Router), React, Chakra UI, TanStack React Query
-- **Backend**: FastAPI (Python 3.12)
-- **ML bits**: Hugging Face Transformers, optional FAISS retriever, optional OpenAI explainer
-- **Vendors** included: integrates code adapted from `agilancan/Fake-News-Detection`
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white&style=for-the-badge)](#)
+[![React](https://img.shields.io/badge/React-149ECA?logo=react&logoColor=white&style=for-the-badge)](#)
+[![Chakra UI](https://img.shields.io/badge/Chakra%20UI-3CC7BD?logo=chakraui&logoColor=white&style=for-the-badge)](#)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-38B2AC?logo=tailwindcss&logoColor=white&style=for-the-badge)](#)
+[![TanStack Query](https://img.shields.io/badge/TanStack%20Query-FF4154?logo=reactquery&logoColor=white&style=for-the-badge)](#)
+[![FastAPI](https://img.shields.io/badge/FastAPI-05998B?logo=fastapi&logoColor=white&style=for-the-badge)](#)
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white&style=for-the-badge)](#)
+[![Uvicorn](https://img.shields.io/badge/Uvicorn-222?style=for-the-badge)](#)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFCC4D?logo=huggingface&logoColor=black&style=for-the-badge)](#)
+[![FAISS](https://img.shields.io/badge/FAISS-0052CC?style=for-the-badge)](#)
+[![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white&style=for-the-badge)](#)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)](#)
+
+**Deploy:**  
+[![Frontend on Vercel](https://img.shields.io/badge/Frontend-Vercel-000000?logo=vercel&logoColor=white&style=for-the-badge)](#)
+[![Backend on Render](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render&logoColor=000&style=for-the-badge)](#)
+
+
 
 ---
 
@@ -14,7 +28,7 @@
 
 - **Python** 3.10+  
 - **Node.js** 18+ & **npm**  
-- **Docker** & **Docker Compose**
+- **Docker****
 
 ### 1. Clone the repo
 
@@ -43,10 +57,10 @@ CORS_ORIGINS=http://localhost:3000
 USE_RAG=1
 USE_EXPLAINER=1
 
-# OpenAI key for LLM explanation (if USE_EXPLAINER=1)
+# OpenAI key for LLM explanation (USE_EXPLAINER=1)
 OPENAI_API_KEY=sk-...
 
-# ONLY if you truly download from GCS at runtime
+# ONLY if download from GCS at runtime
 # GOOGLE_APPLICATION_CREDENTIALS=/absolute/path/to/gcp-sa.json
 
 TOKENIZERS_PARALLELISM=false
