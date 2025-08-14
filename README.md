@@ -1,5 +1,5 @@
 # Fake News Detector
->Paste an article and get a Fake/Real verdict from a RoBERTa classifier, with optional evidence (FAISS/RAG) and LLM explanation.
+>Paste an article and get a Fake/Real verdict from a RoBERTa classifier, with evidence (FAISS/RAG) and LLM explanation.
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white&style=for-the-badge)](#)
 [![React](https://img.shields.io/badge/React-149ECA?logo=react&logoColor=white&style=for-the-badge)](#)
