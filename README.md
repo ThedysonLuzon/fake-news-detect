@@ -59,6 +59,7 @@ npm install --legacy-peer-deps
 npm run dev
 ```
 
+# Project Structure
 ```ruby
 fake-news-detect/
     ├── README.md
