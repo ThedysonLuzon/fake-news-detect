@@ -18,7 +18,10 @@
 [![Frontend on Vercel](https://img.shields.io/badge/Frontend-Vercel-000000?logo=vercel&logoColor=white&style=for-the-badge)](#)
 [![Backend on Render](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render&logoColor=000&style=for-the-badge)](#)
 
-
+- **Frontend**: Next.js (App Router), React, Chakra UI, TanStack React Query  
+- **Backend**: FastAPI (Python 3.12)  
+- **ML bits**: Hugging Face Transformers, FAISS retriever, OpenAI explainer  
+- **Vendors** included: integrates code adapted from `agilancan/Fake-News-Detection`
 
 ---
 
