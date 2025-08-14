@@ -16,9 +16,8 @@ export function useAnalyze() {
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // If your backend expects {text, title, k}, this covers all
         body: JSON.stringify(payload),
-        // optional: keep Vercel from caching
+        // keep Vercel from caching
         cache: "no-store",
       });
 

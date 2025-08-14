@@ -30,7 +30,7 @@ export function ResultPanel({ result }: { result: any }) {
   const clfConfPct =
     typeof result.score === "number" ? (result.score * 100).toFixed(1) : null;
 
-  // --- LLM verdict (if explanation object present) ---
+  // LLM verdict
   const explanation = result.explanation;
   const llmVerdict = norm(explanation?.verdict);
   const llmHasVerdict = !!explanation && !!explanation.verdict;
@@ -43,7 +43,7 @@ export function ResultPanel({ result }: { result: any }) {
       ? llmVerdict !== clfVerdict
       : false;
 
-  // --- Evidence ---
+  // Evidence
   const evidence: Evidence[] = Array.isArray(result.evidence)
     ? result.evidence
     : [];
