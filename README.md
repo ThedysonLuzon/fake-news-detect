@@ -1,16 +1,10 @@
 # Fake News Detector
+>Paste an article and get a Fake/Real verdict from a RoBERTa classifier, with optional evidence (FAISS/RAG) and LLM explanation.
 
-> A web application that classifies articles as **real** or **fake** using a transformer-based classifier, context retrieval, and LLM-generated explanations.
-
----
-
-## Tech Stack
-
-- **Backend**: FastAPI, Python 3.12, Uvicorn  
-- **Frontend**: Next.js 15, React 19, Chakra UI, Tailwind CSS, TanStack React Query  
-- **AI Components**: Hugging Face Transformers (BERT/RoBERTa), FAISS vector store, OpenAI API for explanations  
-- **Containerization**: Docker & Docker Compose 
-- **Infrastructure as Code**: Terraform (in `infra/`)  
+- **Frontend**: Next.js (App Router), React, Chakra UI, TanStack React Query
+- **Backend**: FastAPI (Python 3.12)
+- **ML bits**: Hugging Face Transformers, optional FAISS retriever, optional OpenAI explainer
+- **Vendors** included: integrates code adapted from `agilancan/Fake-News-Detection`
 
 ---
 
@@ -36,8 +30,26 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Run FastAPI server
-uvicorn app.main:app --reload --port 8000 
+uvicorn app.main:app --reload --port 8000
+# http://localhost:8000/health  -> {"status":"ok"}
+# http://localhost:8000/docs    -> Swagger
+```
+Create `backend/.env`
+```
+# Allow local frontend
+CORS_ORIGINS=http://localhost:3000
+
+# Enable/disable heavy features (handy on low-memory hosts)
+USE_RAG=1
+USE_EXPLAINER=1
+
+# OpenAI key for LLM explanation (if USE_EXPLAINER=1)
+OPENAI_API_KEY=sk-...
+
+# ONLY if you truly download from GCS at runtime
+# GOOGLE_APPLICATION_CREDENTIALS=/absolute/path/to/gcp-sa.json
+
+TOKENIZERS_PARALLELISM=false
 ```
 
 ### 3. Frontend Setup
@@ -49,38 +61,43 @@ npm run dev
 
 ```ruby
 fake-news-detect/
-├── backend/
-│   ├── app/
-│   │   ├── main.py          # FastAPI app & endpoints
-│   │   ├── classifier.py    # classification logic
-│   │   ├── retriever.py     # FAISS/RAG retrieval
-│   │   └── explainer.py     # OpenAI explanation calls
-│   ├── requirements.txt
-│   └── .env.example
-│
-├── frontend/
-│   ├── app/                 # Next.js App Router pages & layout
-│   ├── components/          # AnalyzeForm, ResultPanel, etc.
-│   ├── hooks/               # useAnalyze.ts
-│   ├── theme/               # Chakra theme overrides
-│   ├── public/              # static assets (favicon, logos)
-│   ├── package.json
-│   ├── next.config.js
-│   ├── tailwind.config.js
-│   └── tsconfig.json
-│
-├── data/                    # scripts to ingest & preprocess source corpora
-├── models/                  # saved ML model artifacts
-├── infra/                   # Terraform modules for cloud infra
-├── docker-compose.yml
-├── .gitignore
-└── README.md
+    ├── README.md
+    ├── backend/
+    │   ├── Dockerfile
+    │   ├── entrypoint.sh
+    │   ├── requirements.txt
+    │   ├── .dockerignore
+    │   ├── app/
+    │   │   ├── fnd_bridge.py
+    │   │   └── main.py
+    │   └── vendor/
+    │       └── fnd/
+    └── frontend/
+        ├── README.md
+        ├── eslint.config.mjs
+        ├── next.config.ts
+        ├── package-lock.json
+        ├── package.json
+        ├── postcss.config.mjs
+        ├── tailwind.config.js
+        ├── tsconfig.json
+        ├── .gitignore
+        ├── app/
+        │   ├── globals.css
+        │   ├── layout.tsx
+        │   ├── page.tsx
+        │   ├── analyze/
+        │   │   └── page.tsx
+        │   └── api/
+        │       └── analyze/
+        │           └── route.ts
+        ├── components/
+        │   ├── AnalyzeForm.tsx
+        │   └── ResultPanel.tsx
+        ├── hooks/
+        │   └── useAnalyze.tsx
+        ├── public/
+        └── theme/
+            └── index.ts
 
 ```
-
-### Contributing
-
-> - Fork the repo 
-> - Create a feature branch: git checkout -b feature/XYZ
-> - Commit your changes: git commit -m "feat: add XYZ"
-> - Push to your branch and open a PR
