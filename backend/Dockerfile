@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app code
 COPY backend/ ./
+RUN mkdir -p vendor/fnd/model/best_model && touch vendor/fnd/model/best_model/.keep
 
 # Quiet HF tokenizers & friends
 ENV PYTHONUNBUFFERED=1 \

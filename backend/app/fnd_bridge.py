@@ -120,10 +120,27 @@ def _init_once():
     global _predictor, _retriever, _explainer, _loaded
     if _loaded:
         return
-    _ensure_gcp_auth()
 
-    # predictor (required)
-    _predictor, pred_dir = _load_vendor_module("v_pred", "app/predictor.py")
+    def _try_load_predictor():
+        return _load_vendor_module("v_pred", "app/predictor.py")
+
+    # Important: give the vendor code a benign path so it doesn't crash
+    # if GOOGLE_APPLICATION_CREDENTIALS is unset. We don't validate here.
+    if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/secrets/gcp-sa.json"
+
+    # 1) Try to import predictor WITHOUT enforcing a real GCP key
+    try:
+        _predictor, pred_dir = _try_load_predictor()
+    except Exception as e1:
+        # 2) If that fails (e.g., they really try to hit GCS), ensure creds and retry
+        try:
+            _ensure_gcp_auth()
+            _predictor, pred_dir = _try_load_predictor()
+        except Exception as e2:
+            # Re-raise original (more informative for debug)
+            raise e1
+
     _src["predictor"] = str(pred_dir)
 
     # retriever (optional)
@@ -134,7 +151,7 @@ def _init_once():
         _retriever = None
         _src["retriever"] = None
 
-    # explainer (optional)
+    # explainer
     try:
         _explainer, exp_dir = _load_vendor_module("v_exp", "app/explainer.py")
         _src["explainer"] = str(exp_dir)
